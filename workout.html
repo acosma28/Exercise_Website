@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise Randomizer</title>
+<style>
+    body {
+        background-color: #333;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+    .textbox {
+        width: 300px;
+        padding: 10px;
+        font-size: 18px;
+    }
+    .button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+    .clear-button {
+        padding: 10px 20px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        margin-left: 10px;
+    }
+    .exercise-list {
+        text-align: left;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h1>Exercise Randomizer</h1>
+        <input type="text" id="exerciseInput" class="textbox" placeholder="Enter exercise...">
+        <button onclick="randomizeExercise()" class="button">Randomize</button>
+    </div>
+    <div id="exerciseList" class="exercise-list"></div>
+    <button onclick="clearExerciseList()" class="clear-button">Clear List</button>
+</div>
+
+<script>
+    var exercisesList = [];
+
+    function randomizeExercise() {
+        var exercises = [
+            "Push-ups",
+            "Sit-ups",
+            "Squats",
+            "Jumping Jacks",
+            "Plank",
+            "Burpees",
+            "Lunges",
+            "Mountain Climbers"
+        ];
+        var randomIndex = Math.floor(Math.random() * exercises.length);
+        var randomExercise = exercises[randomIndex];
+        var randomSet = Math.floor(Math.random() * 5) + 1;
+        var randomAmount = (Math.floor(Math.random() * 6) + 1) * 5;
+        var exerciseInfo = randomExercise + " (Set: " + randomSet + ", Amount: " + randomAmount + ")";
+        exercisesList.push(exerciseInfo);
+        updateExerciseList();
+        document.getElementById("exerciseInput").value = exerciseInfo;
+    }
+
+    function updateExerciseList() {
+        var exerciseListElement = document.getElementById("exerciseList");
+        exerciseListElement.innerHTML = "";
+        for (var i = 0; i < exercisesList.length; i++) {
+            var exerciseItem = document.createElement("p");
+            exerciseItem.innerText = exercisesList[i];
+            exerciseListElement.appendChild(exerciseItem);
+        }
+    }
+
+    function clearExerciseList() {
+        exercisesList = [];
+        updateExerciseList();
+    }
+</script>
+</body>
+</html>
